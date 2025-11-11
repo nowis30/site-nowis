@@ -1,0 +1,25 @@
+### Node / JS
+node_modules/
+**/node_modules/
+.pnp.*
+
+### Builds / Next.js / Vite
+.next/
+out/
+dist/
+build/
+
+### OS / Editor
+.DS_Store
+Thumbs.db
+*.log
+
+### Env / Secrets
+.env
+.env.*
+*.keystore
+*.jks
+
+### Misc
+coverage/
+*.local
