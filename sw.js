@@ -1,12 +1,13 @@
 // Service Worker de la PWA Héritier Millionnaire
 // Stratégie: precache statique + cache-first pour navigation, avec fallback hors-ligne.
-const VERSION = 'v2';
+const VERSION = 'v4';
 const STATIC_CACHE = `static-${VERSION}`;
 const ASSETS = [
 	'/',
 	'/index.html',
 	'/offline.html',
 	'/telechargement.html',
+	'/delete-account.html',
 	'/manifest.json',
 	'/icons/icon.svg',
 	'/icons/icon-192.png',

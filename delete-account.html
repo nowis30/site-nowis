@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Suppression du compte et des données – Héritier Millionnaire</title>
+  <meta name="theme-color" content="#0c0d10">
+  <style>
+    body{margin:0;min-height:100vh;background:#0c0d10;color:#f7f7f7;font:16px/1.6 system-ui,Segoe UI,Roboto,Arial}
+    .wrap{max-width:920px;margin:0 auto;padding:48px 20px}
+    h1,h2{color:#e5e7eb}
+    a{color:#9ae6b4}
+    .card{background:#15171c;border:1px solid #22252b;border-radius:16px;padding:24px}
+    input,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid #2a2f39;background:#0f1116;color:#e5e7eb}
+    .row{display:grid;gap:12px}
+    .btn{display:inline-block;margin-top:12px;padding:12px 16px;border-radius:12px;border:1px solid #22c55e;text-decoration:none;color:#f7f7f7;background:#16261c}
+    .muted{color:#b5b9c0;font-size:14px}
+  </style>
+  <meta name="description" content="Demande de suppression de compte et de données pour l'application Héritier Millionnaire.">
+</head>
+<body>
+  <div class="wrap">
+    <h1>Suppression du compte et des données</h1>
+    <div class="card">
+      <p>Vous pouvez demander la suppression de votre compte et de l’ensemble des données associées. Cette demande est possible sans être connecté.</p>
+      <h2>Comment procéder ?</h2>
+      <ol>
+        <li>Envoyez une demande via le formulaire ci-dessous, ou par email à <a href="mailto:contact@nowis.store?subject=Suppression%20compte%20H%C3%A9ritier%20Millionnaire">contact@nowis.store</a>.</li>
+        <li>Nous vérifierons votre identité (adresse email / identifiant joueur) pour sécuriser la suppression.</li>
+        <li>Votre compte et vos données seront supprimés dans un délai raisonnable (généralement sous 30 jours) conformément à notre politique.</li>
+      </ol>
+
+      <h2>Formulaire rapide</h2>
+      <form action="mailto:contact@nowis.store" method="post" enctype="text/plain">
+        <div class="row">
+          <label>Email associé au compte
+            <input type="email" name="email" placeholder="votre.email@example.com" required>
+          </label>
+          <label>Identifiant joueur (si connu)
+            <input type="text" name="playerId" placeholder="ex: PLY-12345">
+          </label>
+          <label>Message (optionnel)
+            <textarea name="message" rows="5" placeholder="Je souhaite supprimer mon compte et l’ensemble de mes données."></textarea>
+          </label>
+        </div>
+        <button class="btn" type="submit">Envoyer la demande</button>
+      </form>
+      <p class="muted">Si le bouton ne fonctionne pas, écrivez-nous directement à <a href="mailto:contact@nowis.store">contact@nowis.store</a> en précisant l’email du compte et, si possible, votre identifiant joueur.</p>
+      <p class="muted"><a href="/privacy.html">Consulter la politique de confidentialité</a></p>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <h2>English (summary)</h2>
+      <p>You can request deletion of your account and associated data without being signed in.</p>
+      <ol>
+        <li>Send a request using the form above or by email to <a href="mailto:contact@nowis.store?subject=Account%20deletion%20request">contact@nowis.store</a>.</li>
+        <li>We will verify your identity (email / player ID) to secure the deletion.</li>
+        <li>Your account and data will be deleted within a reasonable period (typically within 30 days).</li>
+      </ol>
+    </div>
+  </div>
+</body>
+</html>

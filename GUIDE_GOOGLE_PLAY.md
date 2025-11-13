@@ -26,9 +26,10 @@ Votre keystore existe déjà: `C:\Users\smori\application nouvelle\site-nowis\ke
 
 3. Récupérer l'empreinte SHA-256 pour l'alias `nowis`:
   ```powershell
-  & keytool -list -v -keystore "C:\Users\smori\application nouvelle\site-nowis\key-android.jks" -storepass 123nowis -alias nowis
+  & "$env:JAVA_HOME\bin\keytool.exe" -list -v -keystore "C:\Users\smori\application nouvelle\site-nowis\key-android.jks" -storepass 123nowis -alias nowis
   ```
-  Copiez la ligne `SHA256:` et conservez-la pour l'étape Asset Links.
+  Copiez la ligne `SHA256:` et conservez-la pour l'étape Asset Links. Pour ta clé actuelle, la valeur est:
+  `07:CD:F8:6C:75:2D:78:1D:E8:B7:05:02:5E:B6:2B:BA:A1:F7:97:67:6B:CE:F1:6B:E8:09:8D:84:94:70:24:B5`
 
 ## 4. Digital Asset Links (`assetlinks.json`)
 
@@ -44,8 +45,8 @@ Déployez et testez: https://digitalassetlinks.googleapis.com/ (ou via l'appli u
 Prérequis: Node.js 18+, JDK 17, Android SDK (variables ANDROID_HOME ou ANDROID_SDK_ROOT).
 ```powershell
 npm install -g @bubblewrap/cli
-# Utiliser le manifest du client Next.js
-bubblewrap init --manifest=https://app.nowis.store/manifest.webmanifest
+# Utiliser provisoirement le manifest sur le domaine Vercel tant que app.nowis.store n'est pas prêt
+bubblewrap init --manifest=https://client-jeux-millionnaire.vercel.app/manifest.webmanifest
 ```
 Répondez aux questions avec:
 - Package ID: `store.nowis.millionnaire`
@@ -53,7 +54,11 @@ Répondez aux questions avec:
 - Store password: `123nowis`
 - Key alias: `nowis`
 - Key password: `123nowis`
-Bubblewrap génère un projet Android (dossier `android/`).
+Bubblewrap génère un projet Android à la racine (fichiers Gradle / dossier `app`). Plus tard, quand le domaine définitif `app.nowis.store` sera actif, exécuter:
+```powershell
+bubblewrap update --manifest=https://app.nowis.store/manifest.webmanifest
+bubblewrap build --signingKey="C:\Users\smori\application nouvelle\site-nowis\key-android.jks" --storePassword=123nowis --keyAlias=nowis --keyPassword=123nowis
+```
 
 ## 6. Construire et signer l'AAB / APK
 
@@ -110,3 +115,56 @@ Assurez-vous que ces fichiers existent.
 
 ---
 Mettez à jour ce guide après remplacement des placeholders. Bon déploiement !
+
+## 12. Déployer `assetlinks.json` sur Vercel (suppression de la barre d'URL)
+
+Pour que la TWA prenne le mode plein écran (et retire la barre d'URL), le fichier `assetlinks.json` doit être servi par LE domaine cible déclaré dans `twa-manifest.json`: `https://client-jeux-millionnaire.vercel.app/.well-known/assetlinks.json`.
+
+### Contenu attendu
+```json
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "store.nowis.millionnaire",
+      "sha256_cert_fingerprints": [
+        "07:CD:F8:6C:75:2D:78:1D:E8:B7:05:02:5E:B6:2B:BA:A1:F7:97:67:6B:CE:F1:6B:E8:09:8D:84:94:70:24:B5"
+      ]
+    }
+  }
+]
+```
+
+### Placement selon le type de projet
+- Next.js / React (Vercel): placer le fichier dans `public/.well-known/assetlinks.json`.
+- Site statique: ajouter le dossier `.well-known` à la racine du projet déployé.
+
+### Vérifier
+1. Ouvrir l'URL: `https://client-jeux-millionnaire.vercel.app/.well-known/assetlinks.json` → doit renvoyer 200 + JSON ci-dessus.
+2. (Optionnel) API Google de validation:
+```
+https://digitalassetlinks.googleapis.com/v1/statements:list?source.web.site=https://twa-bridge-vercel.vercel.app&relation=delegate_permission/common.handle_all_urls&target.androidApp.package_name=store.nowis.millionnaire&target.androidApp.certificate.sha256_fingerprint=07:CD:F8:6C:75:2D:78:1D:E8:B7:05:02:5E:B6:2B:BA:A1:F7:97:67:6B:CE:F1:6B:E8:09:8D:84:94:70:24:B5
+```
+3. Forcer Chrome à revalider sur l'appareil:
+```powershell
+adb shell am force-stop com.android.chrome
+adb shell am force-stop store.nowis.millionnaire
+adb shell pm clear com.android.chrome   # seulement si nécessaire
+```
+4. Relancer l'application: la barre d'URL devrait disparaître.
+
+### Migration vers `app.nowis.store`
+Quand le DNS sera prêt:
+1. Déployer le même `assetlinks.json` sur `https://app.nowis.store/.well-known/assetlinks.json`.
+2. Mettre à jour le projet:
+```powershell
+bubblewrap update --manifest=https://app.nowis.store/manifest.webmanifest
+bubblewrap build --signingKey="C:\Users\smori\application nouvelle\site-nowis\key-android.jks" --storePassword=123nowis --keyAlias=nowis --keyPassword=123nowis
+adb install -r app-release-signed.apk
+```
+3. Vérifier plein écran à nouveau.
+
