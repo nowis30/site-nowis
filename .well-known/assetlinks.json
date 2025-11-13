@@ -6,9 +6,9 @@
     ],
     "target": {
       "namespace": "android_app",
-      "package_name": "store.nowis.millionnaire",
+      "package_name": "com.heritier.millionnaire",
       "sha256_cert_fingerprints": [
-        "07:CD:F8:6C:75:2D:78:1D:E8:B7:05:02:5E:B6:2B:BA:A1:F7:97:67:6B:CE:F1:6B:E8:09:8D:84:94:70:24:B5"
+        "B9:0E:23:FA:33:61:58:AE:24:4D:F1:74:1D:61:83:15:1D:79:A8:3B:98:D0:0D:27:75:0A:F8:0F:EC:40:90:22"
       ]
     }
   }
