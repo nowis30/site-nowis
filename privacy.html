@@ -21,6 +21,8 @@
   </script>
   <!-- Bridge TCF -> Consent Mode (se charge avant AdSense) -->
   <script src="/cmp/consent-sync.js"></script>
+  <!-- Initialisation robuste des annonces (iPhone/Safari & post-consent) -->
+  <script src="/js/ads-init.js" defer></script>
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7443046636998296" crossorigin="anonymous"></script>
   <style>
@@ -59,6 +61,15 @@
   <h2>Contact</h2>
   <p>Questions, accès, rectification ou suppression: <a href="mailto:contact@nowis.store">contact@nowis.store</a></p>
       <p><a href="/">← Retour</a></p>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <h2>Publicité</h2>
+      <ins class="adsbygoogle" style="display:block"
+           data-ad-client="ca-pub-7443046636998296"
+           data-ad-slot="5895554030"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <p class="muted">Affichage soumis à validation AdSense et consentement utilisateur.</p>
     </div>
   </div>
 </body>
