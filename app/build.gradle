@@ -20,6 +20,16 @@ plugins {
     id 'com.android.application'
 }
 
+// Charge les paramètres du keystore si présents (non requis pour la compilation)
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('keystore.properties')
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+// Fallback: si storeFile non défini, utiliser un JKS local par défaut à la racine
+def ksPath = keystoreProperties.getProperty('storeFile', new File(rootDir, 'key-android.jks').absolutePath)
+def hasKs = new File(ksPath).exists()
+
 def twaManifest = [
     applicationId: 'store.nowis.millionnaire',
     hostName: 'app.nowis.store', // The domain being opened in the TWA.
@@ -150,9 +160,24 @@ android {
 
         
     }
+    // Configuration de signature Release (activée uniquement si le fichier keystore.properties existe)
+    signingConfigs {
+        release {
+            // Renseigne la signature si un keystore est disponible
+            if (hasKs) {
+                storeFile file(ksPath)
+                storePassword keystoreProperties.getProperty('storePassword', System.getenv('STORE_PASSWORD'))
+                keyAlias keystoreProperties.getProperty('keyAlias', System.getenv('KEY_ALIAS'))
+                keyPassword keystoreProperties.getProperty('keyPassword', System.getenv('KEY_PASSWORD'))
+            }
+        }
+    }
     buildTypes {
         release {
             minifyEnabled true
+            if (hasKs) {
+                signingConfig signingConfigs.release
+            }
         }
     }
     compileOptions {
