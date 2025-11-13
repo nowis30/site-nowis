@@ -23,6 +23,8 @@
   <script src="/cmp/consent-sync.js"></script>
   <!-- Initialisation robuste des annonces (iPhone/Safari & post-consent) -->
   <script src="/js/ads-init.js" defer></script>
+  <!-- Lien de révocation / gestion des préférences -->
+  <script src="/js/consent-manage.js" defer></script>
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7443046636998296" crossorigin="anonymous"></script>
   <style>
@@ -71,6 +73,7 @@
            data-full-width-responsive="true"></ins>
       <p class="muted">Affichage soumis à validation AdSense et consentement utilisateur.</p>
     </div>
+    <p class="notice">Gérer vos choix: <a href="javascript:void(0)" onclick="openConsent()">Préférences de confidentialité</a></p>
   </div>
 </body>
 </html>

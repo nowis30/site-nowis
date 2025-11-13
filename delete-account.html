@@ -21,6 +21,8 @@
   </script>
   <!-- Bridge TCF -> Consent Mode (se charge avant AdSense) -->
   <script src="/cmp/consent-sync.js"></script>
+  <!-- Lien de révocation / gestion des préférences -->
+  <script src="/js/consent-manage.js" defer></script>
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7443046636998296" crossorigin="anonymous"></script>
   <style>
@@ -76,6 +78,9 @@
         <li>Your account and data will be deleted within a reasonable period (typically within 30 days).</li>
       </ol>
     </div>
+  </div>
+  <div class="wrap">
+    <p class="muted">Gérer vos choix: <a href="javascript:void(0)" onclick="openConsent()">Préférences de confidentialité</a></p>
   </div>
 </body>
 </html>
