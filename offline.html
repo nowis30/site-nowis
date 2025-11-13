@@ -19,6 +19,8 @@
         analytics_storage: 'denied'
       });
     </script>
+  <!-- Bridge TCF -> Consent Mode (utile si offline partiel et CMP a déjà déposé l’état) -->
+  <script src="/cmp/consent-sync.js"></script>
   <style>
     body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#0c0d10;color:#f7f7f7;font:16px/1.5 system-ui,Segoe UI,Roboto,Arial}
     .card{max-width:640px;margin:20px;padding:24px;border-radius:16px;background:#15171c;border:1px solid #22252b}
