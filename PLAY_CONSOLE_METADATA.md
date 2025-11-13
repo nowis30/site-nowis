@@ -8,7 +8,7 @@ Référence pour préparer la publication de la TWA "Héritier Millionnaire" sur
 - **Titre (EN)** : Millionaire Heir – Cashflow & Quiz
 - **Catégorie** : Jeux > Simulation économique (Business / Board alternative)
 - **Classification d’âge** : PEGI 3 / ESRB E10+ (aucun contenu sensible)
-- **Politique de confidentialité** : https://client-jeux-millionnaire.vercel.app/privacy.html
+- **Politique de confidentialité** : https://twa-bridge-vercel.vercel.app/privacy.html
 - **Site web** : https://twa-bridge-vercel.vercel.app/
 - **Email de support** : support@nowis.store (à confirmer)
 
