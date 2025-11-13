@@ -1,3 +1,1 @@
-# Remplacez par votre identifiant éditeur AdSense (pub-XXXXXXXXXXXXXXX)
-# Format officiel :
-# google.com, pub-XXXXXXXXXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0
+google.com, pub-7443046636998296, DIRECT, f08c47fec0942fa0
