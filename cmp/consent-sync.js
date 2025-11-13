@@ -6,6 +6,7 @@
 */
 (function(){
   var GOOGLE_VENDOR_ID = 755; // Google Advertising Products
+  var lastState = {ad_storage:'denied', ad_user_data:'denied', ad_personalization:'denied', analytics_storage:'denied'};
 
   function updateConsentFromTCF(tcData){
     try{
@@ -27,14 +28,23 @@
       // Si vous collectez un consentement Analytics dédié, remplacez par votre condition.
       var analytics_storage = hasP7 ? 'granted' : 'denied';
 
+      var payload = {
+        ad_storage: ad_storage,
+        ad_user_data: ad_user_data,
+        ad_personalization: ad_personalization,
+        analytics_storage: analytics_storage
+      };
       if(typeof window.gtag === 'function'){
-        window.gtag('consent','update',{
-          ad_storage: ad_storage,
-          ad_user_data: ad_user_data,
-          ad_personalization: ad_personalization,
-          analytics_storage: analytics_storage
-        });
+        window.gtag('consent','update', payload);
       }
+      // Emettre un event custom pour déclencher le chargement des annonces
+      try {
+        var changed = Object.keys(payload).some(function(k){ return payload[k] !== lastState[k]; });
+        lastState = payload;
+        if(changed){
+          window.dispatchEvent(new CustomEvent('consentForAdsUpdate', { detail: payload }));
+        }
+      } catch(e) { /* ignore */ }
     }catch(e){
       // no-op
     }
